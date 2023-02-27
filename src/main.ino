@@ -157,11 +157,12 @@ void nbConnect(void) {
 
     String name = modem.getModemName();
     SerialMon.println("Modem Name: "+name);
+#ifdef GSM_PIN
     if (GSM_PIN && (modem.getSimStatus() != 1)) {
     	modem.simUnlock(GSM_PIN);
     	SerialMon.println("SIM unlock...");
     }
-    
+#endif    
     start = millis();
     while (!modem.waitForNetwork()) {
         log("waiting for Network...." + String((millis() - start) / 1000) + "s");
